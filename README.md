@@ -1,32 +1,22 @@
 # k8s_microblog
-running microblog app in docker containers managed with K8s
+At this point I simply crammed all the components together in 2 main files: 
 
-1. Start minikube 
+- One for the 'microblog' app 
 
-2. login to docker in terminal to have access to docker registry to get the image
+- One for 'MySQL"  
 
-```
-Docker login 
-```
+&nbsp;
 
-3. go to the directory for deployment and services files
+All you gotta do, is to: 
+ 
+1. clone the repo 
 
-```
-cd ~/Downloads/microblog_projects/k8s_microblog
+2. Start Minikube 
 
-```
+3. Move into the directory of the cloned repo 
 
-4. create deployment
+4. Create the resources (first MySQL and then the microblog app) 
 ```
-k create -f K8_deployment.yml 
-```
-
-5. create service
-```
-k create -f k8_Service.yml  
-```
-
-6. for the 'load balancer' type service, make the Service accessible through the minikube service command
-```
-minikube service microblogservice 
+Kubectl create –f  MySQL.yml 
+Kubectl create –f  microblog.yml 
 ```
