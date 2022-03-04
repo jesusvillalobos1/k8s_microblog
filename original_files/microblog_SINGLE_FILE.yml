@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: microblog-app-deployment
+  labels:
+    app: microblog
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: microblog
+  template:
+    metadata:
+      labels:
+        app: microblog
+    spec:
+      containers:
+        - name: microblog-app
+          image: aferos00/microblog:latest
+          ports:
+            - containerPort: 5000
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: microblogservice
+  labels:
+    app: microblog
+spec:
+  selector:
+    app: microblog
+  type: LoadBalancer  
+  ports:
+    - protocol: TCP
+      port: 8000
+      targetPort: 5000
+      nodePort: 30000

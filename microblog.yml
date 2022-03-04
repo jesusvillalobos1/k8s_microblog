@@ -1,0 +1,57 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: microblog-deployment
+  labels:
+    app: microblog
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: microblog
+      tier: frontend
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: microblog
+        tier: frontend
+    spec:
+      containers:
+      - name: microblog-pod
+        image: aferos00/microblog:latest
+        ports:
+        - containerPort: 5000
+        env:
+          - name: SECRET_KEY
+            value: "HaShEdSeCrEtKeY"
+          - name: MAIL_SERVER
+            value: "smtp.googlemail.com"
+          - name: MAIL_PORT
+            value: "587" 
+          - name: MAIL_USE_TLS
+            value: "true" 
+          - name: MAIL_USERNAME
+            value: "mygmail@test1.com"
+          - name: MAIL_PASSWORD
+            value: test1 
+          - name: DATABASE_URL
+            value: "mysql+pymysql://microblog:microdbpwd@$(MICROBLOG_MYSQL_SERVICE_SERVICE_HOST)/microblog"           
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: microblog-service
+  labels:
+    app: microblog
+spec:
+  type: NodePort
+  ports:
+  - protocol: TCP
+    port: 5000
+    targetPort: 5000
+    nodePort: 31500
+  selector:
+        app: microblog
+        tier: frontend
