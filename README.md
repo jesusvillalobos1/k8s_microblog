@@ -1,5 +1,7 @@
 # k8s_microblog
-At this point I simply crammed all the components together in 2 main files: 
+This demo is for creating a Kubernetes cluster and deploying "microblog" app (a simple Python3 flask app that connects to a MySQL databse)
+
+All components of deployment and services are bundled together in 2 main files: 
 
 - One for the 'microblog' app 
 
@@ -7,7 +9,7 @@ At this point I simply crammed all the components together in 2 main files:
 
 &nbsp;
 
-All you gotta do, is to: 
+The only steps needs are to: 
  
 1. clone the repo 
 
